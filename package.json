@@ -1,0 +1,29 @@
+{
+  "name": "nordicpet_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathalievaster/nordicpet_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/nathalievaster/nordicpet_backend/issues"
+  },
+  "homepage": "https://github.com/nathalievaster/nordicpet_backend#readme",
+  "dependencies": {
+    "@hapi/hapi": "^21.4.4",
+    "@hapi/jwt": "^3.2.3",
+    "@prisma/client": "^7.2.0",
+    "dotenv": "^17.2.3",
+    "joi": "^18.0.2",
+    "prisma": "^7.2.0"
+  }
+}
