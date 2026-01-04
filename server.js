@@ -35,3 +35,5 @@ const start = async () => {
 };
 
 start();
+
+console.log('Auth routes loaded:', authRoutes);
