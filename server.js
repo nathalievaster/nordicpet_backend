@@ -1,6 +1,9 @@
 import Hapi from '@hapi/hapi';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
+import { jwtPlugin } from './plugins/jwt.js';
+
+await server.register(jwtPlugin);
 
 dotenv.config();
 
