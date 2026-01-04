@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import { jwtPlugin } from './plugins/jwt.js';
 
-await server.register(jwtPlugin);
-
 dotenv.config();
 
 const server = Hapi.server({
@@ -18,9 +16,22 @@ const server = Hapi.server({
 });
 
 const start = async () => {
+  await server.register(jwtPlugin);
+
+  // test route
+  server.route({
+    method: 'GET',
+    path: '/',
+    options: { auth: false },
+    handler: () => ({ message: 'API is running' })
+  });
+
+  // auth routes
+  server.route(authRoutes);
+
+  // start server
   await server.start();
   console.log('Server running on', server.info.uri);
 };
 
-server.route(authRoutes);
 start();
