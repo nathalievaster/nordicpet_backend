@@ -33,12 +33,12 @@ export const createProduct = async (request, h) => {
       description,
       price,
       imageUrl,
-      categoryId,
-      inventory: {
-        create: {
-          quantity
+        categoryId,
+        inventory: {
+          create: {
+            quantity: 0
+          }
         }
-      }
     }
   });
 
