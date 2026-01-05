@@ -13,17 +13,11 @@ export default [
     {
         method: 'GET',
         path: '/products',
-        options: {
-            pre: [requireRole(['admin', 'lager'])]
-        },
         handler: getAllProducts
     },
     {
         method: 'GET',
         path: '/products/{id}',
-        options: {
-            pre: [requireRole(['admin', 'lager'])]
-        },
         handler: getProductById
     },
     {
@@ -50,7 +44,7 @@ export default [
         method: 'PUT',
         path: '/products/{id}',
         options: {
-            pre: [requireRole(['admin', 'lager'])]
+            pre: [requireRole(['admin'])],
         },
         handler: updateProduct
     },
@@ -58,7 +52,7 @@ export default [
         method: 'DELETE',
         path: '/products/{id}',
         options: {
-            pre: [requireRole(['admin', 'lager'])]
+            pre: [requireRole(['admin'])]
         },
         handler: deleteProduct
     }
