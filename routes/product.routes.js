@@ -27,6 +27,9 @@ export default [
             pre: [requireRole(['admin'])],
             validate: {
                 payload: createProductSchema,
+                options: {
+                    abortEarly: false
+                },
                 failAction: (request, h, err) => {
                     return h
                         .response({
