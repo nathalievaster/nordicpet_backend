@@ -41,13 +41,13 @@ export const login = async (request, h) => {
   });
 
   if (!user) {
-    return h.response({ error: 'Invalid credentials' }).code(401);
+    return h.response({ error: 'Username or password is incorrect.' }).code(401);
   }
 
   const validPassword = await bcrypt.compare(password, user.password);
 
   if (!validPassword) {
-    return h.response({ error: 'Invalid credentials' }).code(401);
+    return h.response({ error: 'Username or password is incorrect.' }).code(401);
   }
 
   const token = jwt.sign(
