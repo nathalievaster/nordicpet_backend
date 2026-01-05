@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import { jwtPlugin } from './plugins/jwt.js';
 import productRoutes from './routes/product.routes.js';
+import inventoryRoutes from './routes/inventory.routes.js';
 
 dotenv.config();
 
@@ -32,6 +33,9 @@ const start = async () => {
 
     // product routes
     server.route(productRoutes);
+
+    // inventory routes
+    server.route(inventoryRoutes);
 
     // start server
     await server.start();
