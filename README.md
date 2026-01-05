@@ -105,6 +105,7 @@ Svar:
 }
 
 User (Admin)
+
 **Ändra användarroll**
 
 PATCH /users/{id}/role
@@ -208,13 +209,10 @@ JWT krävs för skyddade routes
 
 Tydlig separation mellan:
 
-routes
-
-controllers
-
-validators
-
-utils
+* routes
+* controllers
+* validators
+* utils
 
 ### Videopresentation
 
