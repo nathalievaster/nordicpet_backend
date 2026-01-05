@@ -5,25 +5,36 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 async function main() {
-  const hashedPassword = await bcrypt.hash(
-    process.env.ADMIN_PASSWORD,
-    10
-  );
+  try {
+    // Hashar lösenordet
+    const hashedPassword = await bcrypt.hash(
+      process.env.ADMIN_PASSWORD,
+      10
+    );
 
-  const admin = await prisma.user.upsert({
-    where: { email: process.env.ADMIN_EMAIL },
-    update: {},
-    create: {
-      name: process.env.ADMIN_NAME,
-      email: process.env.ADMIN_EMAIL,
-      password: hashedPassword,
-      role: 'admin'
-    }
-  });
+    // Upsert för att uppdatera admin-användaren om den redan finns, annars skapa en ny
+    const admin = await prisma.user.upsert({
+      // Leta efter användaren baserat på email
+      where: { email: process.env.ADMIN_EMAIL },
+      // Om användaren finns görs inga ändringar
+      update: {},
+      // Om användaren inte finns, skapa en ny med angivna detaljer
+      create: {
+        name: process.env.ADMIN_NAME,
+        email: process.env.ADMIN_EMAIL,
+        password: hashedPassword,
+        role: 'admin'
+      }
+    });
 
-  console.log('Admin user ensured:', admin.email);
+    console.log('Admin user ensured:', admin.email);
+  } catch (err) {
+    console.error('Error creating admin user:', err);
+  }
 }
 
 main()
+// Fångar eventuella fel från main-funktionen
   .catch(console.error)
+  // Stänger Prisma-klienten när scriptet är klart
   .finally(async () => prisma.$disconnect());
