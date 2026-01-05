@@ -79,7 +79,7 @@ Inventory
 
 ## Auth-endpoints
 
-*** Registrera användare ***
+**Registrera användare**
 
 POST /auth/register 
 
@@ -89,7 +89,7 @@ POST /auth/register
   "password": "password123"
 }
 
-*** Logga in ***
+**Logga in**
 
 POST /auth/login
 
@@ -105,7 +105,7 @@ Svar:
 }
 
 User (Admin)
-*** Ändra användarroll ***
+**Ändra användarroll**
 
 PATCH /users/{id}/role
 Kräver admin
@@ -116,7 +116,7 @@ Kräver admin
 
 ## Category CRUD
 
-*** Skapa kategori ***
+**Skapa kategori**
 
 POST /categories
 
@@ -125,21 +125,21 @@ POST /categories
   "description": "Koppel, skålar, leksaker"
 }
 
-*** Hämta alla kategorier ***
+**Hämta alla kategorier**
 
 GET /categories
 
 ## Product CRUD
 
-*** Hämta alla produkter ***
+**Hämta alla produkter**
 
 GET /products
 
-*** Hämta produkt via ID ***
+**Hämta produkt via ID**
 
 GET /products/{id}
 
-*** Skapa produkt ***
+**Skapa produkt**
 
 POST /products
 Kräver admin
@@ -153,18 +153,18 @@ Kräver admin
   "quantity": 5
 }
 
-*** Uppdatera produkt ***
+**Uppdatera produkt**
 
 PUT /products/{id}
 Kräver admin
 
-*** Ta bort produkt ***
+**Ta bort produkt**
 
 DELETE /products/{id}
 Kräver admin
 
 ## Lagerhantering
-*** Justera lagersaldo ***
+**Justera lagersaldo**
 
 PATCH /inventory/{productId}
 
