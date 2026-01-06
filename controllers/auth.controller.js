@@ -36,6 +36,7 @@ export const register = async (request, h) => {
 export const login = async (request, h) => {
   const { email, password } = request.payload;
 
+  // Hittar användaren baserat på email
   const user = await prisma.user.findUnique({
     where: { email }
   });
@@ -57,6 +58,11 @@ export const login = async (request, h) => {
   );
 
   return {
-    token
+    // Returnerar token och användarinformation så frontend kan läsa ut roll
+    token, user: {
+      id: user.id,
+      email: user.email,
+      role: user.role
+    }
   };
 };
