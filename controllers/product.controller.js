@@ -25,24 +25,33 @@ export const getProductById = async (request, h) => {
 };
 
 export const createProduct = async (request, h) => {
-  const { name, description, price, imageUrl, categoryId, quantity } = request.payload;
+  try {
+    const { name, description, price, imageUrl, categoryId, quantity } = request.payload;
 
-  const product = await prisma.product.create({
-    data: {
-      name,
-      description,
-      price,
-      imageUrl,
+    if (!name || !price || !categoryId) {
+      return h.response({ error: 'name, price och categoryId krävs' }).code(400);
+    }
+
+    const product = await prisma.product.create({
+      data: {
+        name,
+        description,
+        price,
+        imageUrl,
         categoryId,
         inventory: {
           create: {
-            quantity: 0
+            quantity: quantity ?? 0
           }
         }
-    }
-  });
+      }
+    });
 
-  return h.response(product).code(201);
+    return h.response(product).code(201);
+  } catch (err) {
+    console.error(err);
+    return h.response({ error: 'Kunde inte skapa produkt' }).code(400);
+  }
 };
 
 export const updateProduct = async (request, h) => {
