@@ -26,11 +26,9 @@ export const getProductById = async (request, h) => {
 
 export const createProduct = async (request, h) => {
   try {
-    const { name, description, price, imageUrl, categoryId, quantity } = request.payload;
+    console.log('PAYLOAD:', request.payload);
 
-    if (!name || !price || !categoryId) {
-      return h.response({ error: 'name, price och categoryId krävs' }).code(400);
-    }
+    const { name, description, price, imageUrl, categoryId, quantity } = request.payload;
 
     const product = await prisma.product.create({
       data: {
@@ -49,8 +47,11 @@ export const createProduct = async (request, h) => {
 
     return h.response(product).code(201);
   } catch (err) {
-    console.error(err);
-    return h.response({ error: 'Kunde inte skapa produkt' }).code(400);
+    console.error('PRISMA ERROR:', err);
+    return h.response({
+      error: err.message,
+      meta: err.meta
+    }).code(400);
   }
 };
 
