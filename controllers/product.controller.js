@@ -69,7 +69,13 @@ export const updateProduct = async (request, h) => {
 export const deleteProduct = async (request, h) => {
   const id = Number(request.params.id);
 
-  await prisma.product.delete({ where: { id } });
+  await prisma.inventory.deleteMany({
+    where: { productId: id }
+  });
+
+  await prisma.product.delete({
+    where: { id }
+  });
 
   return h.response().code(204);
 };
