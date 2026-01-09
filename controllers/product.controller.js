@@ -56,14 +56,40 @@ export const createProduct = async (request, h) => {
 };
 
 export const updateProduct = async (request, h) => {
-  const id = Number(request.params.id);
+  try {
+    const id = Number(request.params.id);
+    const { quantity, ...productData } = request.payload;
 
-  const product = await prisma.product.update({
-    where: { id },
-    data: request.payload
-  });
+    const product = await prisma.product.update({
+      where: { id },
+      data: {
+        ...productData,
+        inventory: {
+          upsert: {
+            create: {
+              quantity
+            },
+            update: {
+              quantity
+            }
+          }
+        }
+      },
+      include: {
+        inventory: true,
+        category: true
+      }
+    });
 
-  return product;
+    return product;
+  } catch (err) {
+    console.error('UPDATE PRODUCT ERROR:', err);
+    return h
+      .response({
+        error: 'Kunde inte uppdatera produkt'
+      })
+      .code(500);
+  }
 };
 
 export const deleteProduct = async (request, h) => {
