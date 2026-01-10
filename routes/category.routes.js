@@ -11,7 +11,10 @@ export default [
   {
     method: 'POST',
     path: '/categories',
-    options: { auth: false },
+    options: {
+      auth: 'jwt',
+      pre: [requireRole(['admin'])]
+    },
     handler: createCategory
   },
   {
@@ -29,13 +32,19 @@ export default [
   {
     method: 'PATCH',
     path: '/categories/{id}',
-    options: { pre: [requireRole(['admin'])] },
+    options: {
+      auth: 'jwt',
+      pre: [requireRole(['admin'])]
+    },
     handler: updateCategory
   },
   {
     method: 'DELETE',
     path: '/categories/{id}',
-    options: { pre: [requireRole(['admin'])] },
+    options: {
+      auth: 'jwt',
+      pre: [requireRole(['admin'])]
+    },
     handler: deleteCategory
   }
 ];
