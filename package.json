@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
