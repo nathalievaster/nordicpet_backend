@@ -9,13 +9,13 @@ import inert from '@hapi/inert';
 dotenv.config();
 
 const server = Hapi.server({
-    port: 3000,
-    host: 'localhost',
-    routes: {
-        cors: {
-            origin: ['*']
-        }
+  port: process.env.PORT || 3000,
+  host: '0.0.0.0',
+  routes: {
+    cors: {
+      origin: ['*']
     }
+  }
 });
 
 const start = async () => {
