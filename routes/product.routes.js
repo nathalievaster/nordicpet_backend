@@ -7,7 +7,6 @@ import {
 } from '../controllers/product.controller.js';
 
 import { requireRole } from '../utils/requireRole.js';
-import { createProductSchema } from '../validators/product.validators.js';
 
 export default [
     {
@@ -25,20 +24,11 @@ export default [
         path: '/products',
         options: {
             pre: [requireRole(['admin'])],
-            validate: {
-                payload: createProductSchema,
-                options: {
-                    abortEarly: false
-                },
-                failAction: (request, h, err) => {
-                    return h
-                        .response({
-                            error: 'Validation error',
-                            details: err.details.map(d => d.message)
-                        })
-                        .code(400)
-                        .takeover();
-                }
+            payload: {
+                output: 'stream',
+                parse: true,
+                multipart: true,
+                maxBytes: 10 * 1024 * 1024
             }
         },
         handler: createProduct
@@ -48,6 +38,12 @@ export default [
         path: '/products/{id}',
         options: {
             pre: [requireRole(['admin'])],
+            payload: {
+                output: 'stream',
+                parse: true,
+                multipart: true,
+                maxBytes: 10 * 1024 * 1024
+            }
         },
         handler: updateProduct
     },

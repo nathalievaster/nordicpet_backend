@@ -5,7 +5,7 @@ import { jwtPlugin } from './plugins/jwt.js';
 import productRoutes from './routes/product.routes.js';
 import inventoryRoutes from './routes/inventory.routes.js';
 import categoryRoutes from './routes/category.routes.js';
-
+import inert from '@hapi/inert';
 dotenv.config();
 
 const server = Hapi.server({
@@ -20,6 +20,7 @@ const server = Hapi.server({
 
 const start = async () => {
     await server.register(jwtPlugin);
+    await server.register(inert);
 
     // test route
     server.route({
@@ -41,7 +42,19 @@ const start = async () => {
     // category routes 
     server.route(categoryRoutes);
 
-    // start server
+    server.route({
+        method: 'GET',
+        path: '/uploads/{param*}',
+        options: { auth: false },
+        handler: {
+            directory: {
+                path: 'uploads',
+                redirectToSlash: true
+            }
+        }
+    });
+
+    // Startar server
     await server.start();
     console.log('Server running on', server.info.uri);
 };
