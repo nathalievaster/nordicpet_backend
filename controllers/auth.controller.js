@@ -19,7 +19,7 @@ export const register = async (request, h) => {
     });
 
     return h.response({
-      message: 'User registered',
+      message: 'Användare registrerad',
       user: {
         id: user.id,
         email: user.email
@@ -28,7 +28,7 @@ export const register = async (request, h) => {
 
   } catch (error) {
     return h.response({
-      error: 'Email already exists'
+      error: 'Email finns redan.'
     }).code(400);
   }
 };
@@ -42,13 +42,13 @@ export const login = async (request, h) => {
   });
 
   if (!user) {
-    return h.response({ error: 'Username or password is incorrect.' }).code(401);
+    return h.response({ error: 'Användarnamn eller lösenord är fel.' }).code(401);
   }
 
   const validPassword = await bcrypt.compare(password, user.password);
 
   if (!validPassword) {
-    return h.response({ error: 'Username or password is incorrect.' }).code(401);
+    return h.response({ error: 'Användarnamn eller lösenord är fel.' }).code(401);
   }
 
   const token = jwt.sign(
